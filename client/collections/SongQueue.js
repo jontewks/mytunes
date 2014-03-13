@@ -2,12 +2,32 @@
 var SongQueue = Songs.extend({
 
   initialize: function(){
+    this.on('add', function(){
+      if(this.length === 1){
+        this.playFirst();
+      }
+    });
+
+    this.on('ended', function(){
+      this.shift();
+      if (this.length > 0) {
+        this.playFirst();
+      }
+    });
+
+    this.on('dequeue', function() {
+      this.shift();
+    });
+
+    this.on('removal', function(song) {
+      this.remove(song);
+    });
+
   },
   playFirst: function(){
     // if length ===1 && not playing LATER FARID
-    if(this.length === 1){
-      this.models[0].trigger('play',this.models[0]);
-    }
+    this.models[0].play();
   }
+
 
 });
