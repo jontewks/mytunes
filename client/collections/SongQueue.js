@@ -27,6 +27,7 @@ var SongQueue = Songs.extend({
   playFirst: function(){
     // if length ===1 && not playing LATER FARID
     this.models[0].play();
+
   }
 
 
